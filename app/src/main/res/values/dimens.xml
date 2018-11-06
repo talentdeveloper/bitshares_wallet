@@ -2,4 +2,5 @@
 <resources>
     <dimen name="send_fragment_text_size">14sp</dimen>
     <dimen name="order_item_margin">12dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 </resources>

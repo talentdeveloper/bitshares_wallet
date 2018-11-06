@@ -74,7 +74,8 @@ public class MainActivity extends AppCompatActivity
     private QuotationFragment mQuotationFragment;
     private ExchangeFragment mExchangeFragment;
     private BtsFragmentPageAdapter mMainFragmentPageAdapter;
-    private TextView mTxtTitle;
+    public TextView mTxtTitle;
+    private TextView headerTitle;
     private LinearLayout mLayoutTitle;
     private BottomNavigationView mBottomNavigation;
     private Handler mHandler = new Handler();
@@ -119,6 +120,9 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void setTitleVisible(boolean visible){
+        headerTitle.setText(visible ? "Currency Info" : "My Account");
+    }
+    private void setSelectorVisible(boolean visible){
         mLayoutTitle.setVisibility(visible ? View.VISIBLE : View.INVISIBLE);
     }
 
@@ -134,9 +138,11 @@ public class MainActivity extends AppCompatActivity
         mToolbar.setTitle("");
         // Toolbar的标题文本不支持居中，故创建了新文本
         mLayoutTitle = (LinearLayout) mToolbar.findViewById(R.id.lay_title);
+        headerTitle = (TextView)mToolbar.findViewById(R.id.header_title);
         mTxtTitle = (TextView) mToolbar.findViewById(R.id.txt_bar_title);
         updateTitle();
         setTitleVisible(false);
+        setSelectorVisible(false);
 
         mLayoutTitle.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -184,7 +190,7 @@ public class MainActivity extends AppCompatActivity
                 } else if(position == 2) {
                     mBottomNavigation.setSelectedItemId(R.id.navigation_exchange);
                 }
-                setTitleVisible(position!=0);
+                setTitleVisible(position==1);
                 mMainFragmentPageAdapter.updatePagePosition(position);
             }
 
@@ -203,7 +209,6 @@ public class MainActivity extends AppCompatActivity
                         break;
                     case R.id.settings:
                         Intent intentSettings = new Intent(MainActivity.this, SettingsActivity.class);
-                        //startActivity(intent);
                         startActivityForResult(intentSettings, REQUEST_CODE_SETTINGS);
                         break;
                     case R.id.about:
@@ -259,6 +264,7 @@ public class MainActivity extends AppCompatActivity
 
 
         mBottomNavigation = (BottomNavigationView) findViewById(R.id.navigation_bottom);
+        mBottomNavigation.setItemIconTintList(null);
         mBottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -373,7 +379,7 @@ public class MainActivity extends AppCompatActivity
         builder.show();
     }
 
-    private void processChooseCurency(){
+    public void processChooseCurency(){
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(MainActivity.this);
         dialogBuilder.setTitle(R.string.title_select_currency);
         Resources res = getResources();

@@ -21,8 +21,17 @@
             android:elevation="0dp"
             app:layout_collapseMode="pin"
             app:popupTheme="@style/AppTheme.PopupOverlay"
-            app:title="@string/app_name_full"
+            app:title=" "
             app:titleTextColor="@android:color/white">
+
+            <TextView
+                android:id="@+id/header_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/open_sans_semibold"
+                android:text="My Account"
+                android:textColor="@android:color/white"
+                android:textSize="20sp" />
 
             <LinearLayout
                 android:id="@+id/lay_title"

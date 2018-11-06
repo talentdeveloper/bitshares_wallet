@@ -197,7 +197,8 @@
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_vertical"
             android:layout_margin="8dp"
-            android:text="Send" />
+            android:fontFamily="@font/open_sans"
+            android:text="Send Money" />
 
     </RelativeLayout>
 

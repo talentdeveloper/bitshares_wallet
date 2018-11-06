@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Layout;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,6 +56,8 @@ public class QuotationFragment extends BaseFragment {
     @BindView(R.id.layoutChartLoading) View mLoadingChartView;
     @BindView(R.id.layoutLoadingError) View mLoadingErrorView;
     @BindView(R.id.layoutSelected) View mviewLayoutSelected;
+    @BindView(R.id.lay_title) View mLayoutTitle;
+    private TextView mTxtTitle;
 
     private static final int SHOW_CHART_VIEW_NO_DATA = 0;
     private static final int SHOW_CHART_VIEW_LODING = 1;
@@ -93,6 +96,15 @@ public class QuotationFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_quotation, container, false);
         ButterKnife.bind(this, view);
+
+        mTxtTitle = (TextView) mLayoutTitle.findViewById(R.id.txt_bar_title);
+        mTxtTitle.setText(((MainActivity)getActivity()).mTxtTitle.getText());
+        mLayoutTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity) getActivity()).processChooseCurency();
+            }
+        });
 
         quotationCurrencyPairAdapter = new QuotationCurrencyPairAdapter(getActivity());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
@@ -244,6 +256,7 @@ public class QuotationFragment extends BaseFragment {
                                 quotationCurrencyPairAdapter.notifyDataUpdated(marketTickerListResource.data);
                                 MarketTicker marketTicker = quotationCurrencyPairAdapter.getSelectedMarketTicker().marketTicker;
                                 viewModel.selectedMarketTicker(new Pair(marketTicker.base, marketTicker.quote));
+
                             }
                             break;
                         case SUCCESS:
@@ -268,7 +281,9 @@ public class QuotationFragment extends BaseFragment {
                     break;
             }
         });
-        viewModel.getSelectedMarketTicker().observe(this, currencyPair -> quotationCurrencyPairAdapter.notifyDataSetChanged() );
+        viewModel.getSelectedMarketTicker().observe(this, currencyPair -> {quotationCurrencyPairAdapter.notifyDataSetChanged();
+            mTxtTitle.setText(((MainActivity)getActivity()).mTxtTitle.getText());
+        });
     }
 
     @Override

@@ -140,27 +140,24 @@ public class WalletFragment extends BaseFragment {
             totalBTS += bitsharesBalanceAsset.total;
             totalBalance += bitsharesBalanceAsset.balance;
         }
-
+        double exchangeRate = 0;
         if (bitsharesBalanceAssetList.isEmpty() == false) {
             BitsharesBalanceAsset bitsharesBalanceAsset = bitsharesBalanceAssetList.get(0);
-            double exchangeRate = (double) totalBalance / bitsharesBalanceAsset.currency_precision / totalBTS * bitsharesBalanceAsset.base_precision;
+            exchangeRate = (double) totalBalance / bitsharesBalanceAsset.currency_precision / totalBTS * bitsharesBalanceAsset.base_precision;
             totalBTS /= bitsharesBalanceAssetList.get(0).base_precision;
             totalBalance /= bitsharesBalanceAssetList.get(0).currency_precision;
 
             String strTotalCurrency = String.format(
                     Locale.ENGLISH,
-                    "= %d %s (%.4f %s/%s)",
-                    totalBalance,
-                    bitsharesBalanceAsset.currency,
-                    exchangeRate,
-                    "BTS",
-                    bitsharesBalanceAsset.currency
+                    "(%d %s)",
+                    totalBTS,
+                    "BTS"
             );
 
             textViewCurency.setText(strTotalCurrency);
         }
-
-        String strTotalBalance = String.format(Locale.ENGLISH, "%d %s", totalBTS, "BTS");
+        long usd_value = (long) ((long)totalBTS * exchangeRate);
+        String strTotalBalance = String.format(Locale.ENGLISH, "%s %d", "$",usd_value);
         textViewBalances.setText(strTotalBalance);
         textViewCurency.setVisibility(View.VISIBLE);
 

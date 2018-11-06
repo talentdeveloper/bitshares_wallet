@@ -349,41 +349,44 @@
         android:layout_marginRight="4dp"/>
 
     <LinearLayout
+        android:id="@+id/linearLayout4"
         android:layout_width="0dp"
         android:layout_height="35dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
         android:layout_marginTop="18dp"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:id="@+id/linearLayout4"
-        app:layout_constraintHorizontal_bias="0.0">
+        app:layout_constraintTop_toBottomOf="@+id/textView">
+
         <Button
             android:id="@+id/restButton"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="18dp"
-            android:layout_marginStart="18dp"
-            android:layout_weight="4"
+            android:layout_marginRight="9dp"
+            android:layout_weight="5"
+            android:textAllCaps="false"
             android:background="@drawable/button_normal_2"
+            android:fontFamily="@font/open_sans"
             android:text="@string/label_reset"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView"/>
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
 
         <Button
             android:id="@+id/okButton"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="18dp"
-            android:layout_marginLeft="6dp"
+            android:layout_marginLeft="9dp"
             android:layout_marginRight="18dp"
-            android:layout_marginStart="6dp"
-            android:layout_weight="6"
+            android:textAllCaps="false"
+            android:layout_weight="5"
             android:background="@drawable/button_normal_selector"
+            android:fontFamily="@font/open_sans"
             android:text="@string/label_buy"
             android:textColor="@android:color/white"
             app:layout_constraintLeft_toRightOf="@+id/restButton"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/askTextInfo"/>
+            app:layout_constraintTop_toBottomOf="@+id/askTextInfo" />
     </LinearLayout>
 
 

@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name_full">Bitshares Wallet</string>
-    <string name="app_name">BTS Wallet</string>
+    <string name="app_name">Cryptive Invest</string>
+    <string name="app_start">Get Started</string>
 
     <!--侧边栏-->
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -11,15 +12,17 @@
 
     <string name="title_activity_sign_up_button">SignUpButtonActivity</string>
     <string name="sign_up_button">LOG IN</string>
+    <string name="welcome_message">Welcome Back!</string>
     <string name="dummy_content">BitShares Wallet</string>
 
-    <string name="splash_page_message">Safer way for storage and trade</string>
+    <string name="splash_page_message">Invest with Cryptive Invest</string>
 
     <string name="about_activity_title">About</string>
     <string name="settings_activity_title">Settings</string>
     <string name="import_activity_title">Import key</string>
     <string name="model_select_activity_title">Log In</string>
-
+    <string name="sign_in_button">Sign In</string>
+    <string name="signup_now">Signup now</string>
     <string name="operation_history_year">%d year ago</string>
     <string name="operation_history_years">%d years ago</string>
 
@@ -99,9 +102,9 @@
     <string name="label_lowest_ask">Lowest ask:</string>
     <string name="label_highest_bid">Highest bid:</string>
 
-    <string name="label_reset">RESET</string>
-    <string name="label_buy">BUY</string>
-    <string name="label_sell">SELL</string>
+    <string name="label_reset">Reset</string>
+    <string name="label_buy">Buy</string>
+    <string name="label_sell">Sell</string>
     <string name="label_buy_order">BUY ORDER</string>
     <string name="label_sell_order">SELL ORDER</string>
     <string name="label_operation">Operation:</string>
@@ -118,14 +121,16 @@
 
     <string name="menu_logout">Log out</string>
     <string name="import_account_name">Account Name:</string>
-    <string name="import_password">Password:</string>
+    <string name="import_email">EMAIL ID</string>
+    <string name="import_password">PASSWORD</string>
     <string name="label_memo">Memo:</string>
     <string name="label_from">From:</string>
     <string name="label_to">To:</string>
+    <string name="check_account">"Don't have an account?"</string>
 
     <string name="tab_send">Send</string>
     <string name="tab_balances">Balance</string>
-    <string name="tab_transactions">Transaction</string>
+    <string name="tab_transactions">History</string>
     <string name="title_currency_settings">Currency Settings</string>
     <string name="title_full_node_api_server_select">Full Node Api Server Select</string>
     <string name="title_select_currency">Choose a currency</string>
@@ -146,7 +151,7 @@
     <string name="create_account_activity_account_object_exist">The account has already existed</string>
     <string name="create_account_activity_response_fail">Server failed to response</string>
     <string name="create_account_activity_create_fail">Failed to sign up</string>
-
+    <string name="login_to_your_account">Login to your Account</string>
     <string name="create_account_account_name_error_full_letter">The account name cannot contain only letters</string>
     <string name="create_account_account_name_too_short">The account name is too short</string>
     <string name="create_account_account_name_error_start_letter">The account name should start with a letter</string>
@@ -176,5 +181,6 @@
 
     <string name="loading_history_failed">Failed to load data. Please try again later</string>
     <string name="loading_history_data">Loading transaction data</string>
+    <string name="title_activity_splash">SplashActivity</string>
 
 </resources>

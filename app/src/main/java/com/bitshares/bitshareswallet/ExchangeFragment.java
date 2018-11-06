@@ -1,14 +1,23 @@
 package com.bitshares.bitshareswallet;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.bitshares.bitshareswallet.market.MarketTicker;
+import com.bitshares.bitshareswallet.viewmodel.QuotationViewModel;
+
+import butterknife.BindView;
 
 
 /**
@@ -30,8 +39,11 @@ public class ExchangeFragment extends BaseFragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    private QuotationCurrencyPairAdapter quotationCurrencyPairAdapter;
     private ViewPager mViewPager;
     private TabLayout mTabLayout;
+    private LinearLayout mLayoutTitle;
+    private TextView mTxtTitle;
     private BtsFragmentPageAdapter mExchangeFragmentPageAdapter;
 
     private OrdersFragment mOrdersFragment;
@@ -73,6 +85,7 @@ public class ExchangeFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment_exchange, container, false);
         mTabLayout = (TabLayout) view.findViewById(R.id.tabLayout);
         mViewPager = (ViewPager) view.findViewById(R.id.exchangeViewPager);
+        mLayoutTitle = (LinearLayout)view.findViewById(R.id.lay_title);
         mExchangeFragmentPageAdapter = new BtsFragmentPageAdapter(getFragmentManager());
         mExchangeFragmentPageAdapter.addFragment(TransactionSellBuyFragment.newInstance(TransactionSellBuyFragment.TRANSACTION_BUY), getResources().getString(R.string.label_buy));
         mExchangeFragmentPageAdapter.addFragment(TransactionSellBuyFragment.newInstance(TransactionSellBuyFragment.TRANSACTION_SELL), getResources().getString(R.string.label_sell));
@@ -80,6 +93,15 @@ public class ExchangeFragment extends BaseFragment {
         mExchangeFragmentPageAdapter.addFragment(mOrdersFragment, getResources().getString(R.string.title_my_orders));
         mViewPager.setAdapter(mExchangeFragmentPageAdapter);
         initPager(mViewPager, mExchangeFragmentPageAdapter);
+
+        mTxtTitle = (TextView) mLayoutTitle.findViewById(R.id.txt_bar_title);
+        mTxtTitle.setText(((MainActivity)getActivity()).mTxtTitle.getText());
+        mLayoutTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity) getActivity()).processChooseCurency();
+            }
+        });
 
         mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -141,5 +163,15 @@ public class ExchangeFragment extends BaseFragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    @Override
+    public void onShow() {
+        super.onShow();
+
+        QuotationViewModel viewModel = ViewModelProviders.of(getActivity()).get(QuotationViewModel.class);
+        viewModel.getSelectedMarketTicker().observe(this, currencyPair -> {
+            mTxtTitle.setText(((MainActivity)getActivity()).mTxtTitle.getText());
+        });
     }
 }

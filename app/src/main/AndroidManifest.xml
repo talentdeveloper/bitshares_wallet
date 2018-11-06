@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".SplashActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan">
@@ -25,9 +25,11 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/ActivityTheme" />
+        <activity
             android:name=".SignUpButtonActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_sign_up_button"
             android:screenOrientation="portrait"
             android:theme="@style/ActivityTheme" />
         <activity
@@ -46,6 +48,9 @@
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="1516f2abc1f71a4a06a0b84c26caaa01398302fb" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
 
         <activity
             android:name=".SettingsActivity"
@@ -54,7 +59,8 @@
             android:name=".AboutActivity"
             android:screenOrientation="portrait"
             android:theme="@style/ActivityTheme" />
-        <activity android:name=".CreateAccountActivity"
+        <activity
+            android:name=".CreateAccountActivity"
             android:screenOrientation="portrait"
             android:theme="@style/ActivityTheme" />
     </application>
