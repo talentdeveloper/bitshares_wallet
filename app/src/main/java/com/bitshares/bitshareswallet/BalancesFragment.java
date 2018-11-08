@@ -44,19 +44,17 @@ public class BalancesFragment extends BaseFragment {
     class BalanceItemViewHolder extends RecyclerView.ViewHolder {
         public View view;
         public TextView viewNumber;
-        public TextView viewUnit;
-        public TextView viewEqual;
+        public TextView viewUnitFull;
         public TextView viewConvertNumber;
-        public TextView viewConvertUnit;
+        public TextView viewUnit;
 
         public BalanceItemViewHolder(View itemView) {
             super(itemView);
             view = itemView;
             viewNumber = (TextView) itemView.findViewById(R.id.textViewNumber);
-            viewUnit = (TextView) itemView.findViewById(R.id.textViewUnit);
-            viewEqual = (TextView) itemView.findViewById(R.id.textViewEqual);
+            viewUnitFull = (TextView) itemView.findViewById(R.id.textViewUnitFull);
             viewConvertNumber = (TextView) itemView.findViewById(R.id.textViewNumber2);
-            viewConvertUnit = (TextView) itemView.findViewById(R.id.textViewUnit2);
+            viewUnit = (TextView) itemView.findViewById(R.id.textViewUnit);
         }
     }
 
@@ -78,15 +76,11 @@ public class BalancesFragment extends BaseFragment {
                     (float)bitsharesBalanceAsset.amount / bitsharesBalanceAsset.quote_precision
             );
 
-            holder.viewNumber.setText(strBalances);
+            holder.viewConvertNumber.setText(strBalances +" "+holder.viewUnit.getText());
+            holder.viewUnitFull.setText(bitsharesBalanceAsset.quote);
             holder.viewUnit.setText(bitsharesBalanceAsset.quote);
-            if (bitsharesBalanceAsset.quote.compareTo("BTS") != 0) {
-                int nResult = (int)Math.rint(bitsharesBalanceAsset.total / bitsharesBalanceAsset.base_precision);
-
-                holder.viewEqual.setText("=");
-                holder.viewConvertNumber.setText(Integer.valueOf(nResult).toString());
-                holder.viewConvertUnit.setText("BTS");
-            }
+            int nResult = (int)Math.rint(bitsharesBalanceAsset.total / bitsharesBalanceAsset.base_precision);
+            holder.viewNumber.setText("$"+Integer.valueOf(nResult).toString());
 
         }
 

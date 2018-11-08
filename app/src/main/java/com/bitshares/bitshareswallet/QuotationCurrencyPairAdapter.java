@@ -2,6 +2,7 @@ package com.bitshares.bitshareswallet;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.media.Image;
 import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,6 +15,8 @@ import android.widget.Toast;
 import com.bitshares.bitshareswallet.market.MarketTicker;
 import com.bitshares.bitshareswallet.room.BitsharesMarketTicker;
 import com.bitshares.bitshareswallet.wallet.graphene.chain.utils;
+
+import org.w3c.dom.Text;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -37,20 +40,24 @@ public class QuotationCurrencyPairAdapter extends RecyclerView.Adapter<Quotation
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private View mView;
-        private View mViewSelected;
         private ImageView mCurrencyIconView;
+        private ImageView mStatus;
         private TextView mViewCurrencyPair;
         private TextView mViewPrice;
+        private TextView mTotal;
+        private TextView mUnit;
         private TextView mView24h;
 
         public ViewHolder(View itemView) {
             super(itemView);
             mView = itemView;
-            mViewSelected = mView.findViewById(R.id.viewSelected);
             mCurrencyIconView = (ImageView) mView.findViewById(R.id.imageViewCurrency);
             mViewCurrencyPair = (TextView) mView.findViewById(R.id.textViewCurrencyPair);
             mViewPrice = (TextView) mView.findViewById(R.id.textViewPrice);
             mView24h = (TextView) mView.findViewById(R.id.textView24h);
+            mStatus = (ImageView)mView.findViewById(R.id.imageViewStatus);
+            mUnit = (TextView)mView.findViewById(R.id.textViewUnit);
+            mTotal = (TextView)mView.findViewById(R.id.textViewTotal);
         }
     }
 
@@ -92,17 +99,17 @@ public class QuotationCurrencyPairAdapter extends RecyclerView.Adapter<Quotation
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         BitsharesMarketTicker bitsharesMarketTicker = bitsharesMarketTickerList.get(position);
-
+/*
         if (selected == position) {
             holder.mViewSelected.setVisibility(View.VISIBLE);
         } else {
             holder.mViewSelected.setVisibility(View.INVISIBLE);
         }
-
+*/
         MarketTicker marketTicker = bitsharesMarketTicker.marketTicker;
         String currencyPair = utils.getAssetSymbolDisply(marketTicker.quote) + " : " +
                 utils.getAssetSymbolDisply(marketTicker.base);
-
+        holder.mUnit.setText(utils.getAssetSymbolDisply(marketTicker.quote));
         holder.mViewCurrencyPair.setText(currencyPair);
         Integer nId = mapSymbol2Id.get(utils.getAssetSymbolDisply(marketTicker.quote));
         if (nId == null) {
@@ -112,7 +119,7 @@ public class QuotationCurrencyPairAdapter extends RecyclerView.Adapter<Quotation
 
 
         DecimalFormat decimalFormat = new DecimalFormat("#.####");
-        holder.mViewPrice.setText(decimalFormat.format(marketTicker.latest));
+        holder.mViewPrice.setText(decimalFormat.format(marketTicker.latest) + " "+ holder.mUnit.getText());
 
         double percent_change = 0.f;
         try {
@@ -124,26 +131,28 @@ public class QuotationCurrencyPairAdapter extends RecyclerView.Adapter<Quotation
         String strPercentChange;
         if (percent_change >= 0) {
             if (!MainActivity.rasingColorRevers) {
-                holder.mView24h.setBackgroundResource(R.drawable.percent_change_background_green);
+                holder.mView24h.setTextColor(mContext.getResources().getColor(R.color.quotation_top_green));
             } else {
-                holder.mView24h.setBackgroundResource(R.drawable.percent_change_background_red);
+                holder.mView24h.setTextColor(mContext.getResources().getColor(R.color.quotation_top_red));
             }
             strPercentChange = String.format(
                     Locale.ENGLISH,
                     "+%.2f%%",
                     percent_change
             );
+            holder.mStatus.setImageResource(R.mipmap.ic_plus);
         } else {
             if (!MainActivity.rasingColorRevers) {
-                holder.mView24h.setBackgroundResource(R.drawable.percent_change_background_red);
+                holder.mView24h.setTextColor(mContext.getResources().getColor(R.color.quotation_top_red));
             } else {
-                holder.mView24h.setBackgroundResource(R.drawable.percent_change_background_green);
+                holder.mView24h.setTextColor(mContext.getResources().getColor(R.color.quotation_top_green));
             }
             strPercentChange = String.format(
                     Locale.ENGLISH,
                     "%.2f%%",
                     percent_change
             );
+            holder.mStatus.setImageResource(R.mipmap.ic_minus);
         }
         holder.mView24h.setText(strPercentChange);
 

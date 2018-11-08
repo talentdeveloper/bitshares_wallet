@@ -3,12 +3,13 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="main_background">#f8f8f8</color>
 
     <color name="background_color">#df7d1e</color>
     <color name="splash_message_color">#7a8a96</color>
     <color name="black_overlay">#66000000</color>
     <color name="blue_background">#0099cc</color>
-    <color name="grey">#D3D3D3</color>
+    <color name="grey">#d3d3d3</color>
     <color name="light_grey">#F2F2F2</color>
     <color name="blue">#2d95ff</color>
     <color name="red">#fe0000</color>
@@ -18,12 +19,12 @@
     <color name="label_red">#ff0000</color>
     <color name="quotation_top_red">#FF3333</color>
     <color name="quotation_top_green">#009933</color>
-    <color name="candle_green">#00CC00</color>
+    <color name="candle_green">#00cc00</color>
     <color name="tab_textnormal">#f4d1af</color>
 
     <color name="home_page_bg">#1E1E26</color>
     <color name="common_divider">#303341</color>
-    <color name="text_grey_light">#A7ADBC</color>
+    <color name="text_grey_light">#a7adbc</color>
 
     <color name="ma5">#823E66</color>
     <color name="ma10">#B99C7A</color>

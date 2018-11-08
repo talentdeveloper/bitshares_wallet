@@ -26,35 +26,59 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="210dp"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="10dp">
+
             <ImageView
-                android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/about_logo"
-                android:layout_gravity="center_horizontal"/>
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="15dp"
+                android:src="@mipmap/splash_logo_white" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:gravity="center_horizontal"
-                android:text="@string/app_name_full"
-                android:textColor="@android:color/white"
-                android:textStyle="italic"
-                android:textSize="30sp"/>
+                android:text="Copyright 2016-2018"
+                android:textColor="@android:color/white" />
 
             <TextView
                 android:id="@+id/textViewVersion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 android:gravity="center_horizontal"
-                android:layout_marginTop="15dp"
-                android:text="Version 1.0.0"/>
+                android:text="Cryptive Invest"
+                android:textColor="@android:color/white" />
+
+            <TextView
+                android:id="@+id/textView_url1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center_horizontal"
+                android:text="pious@cryptive.trade"
+                android:textColor="@android:color/white" />
+
+            <TextView
+                android:id="@+id/textView_url2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center_horizontal"
+                android:text="Twitter@incryptive"
+                android:textColor="@android:color/white" />
 
         </LinearLayout>
 
     </android.support.design.widget.AppBarLayout>
-
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
     <LinearLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
@@ -62,7 +86,7 @@
         android:orientation="vertical"
         android:background="@android:color/white"
         android:padding="8dp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        >
 
         <TextView
             android:layout_marginLeft="10dp"
@@ -140,5 +164,5 @@
 
     </LinearLayout>
 
-
+    </ScrollView>
 </android.support.design.widget.CoordinatorLayout>

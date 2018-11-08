@@ -71,7 +71,7 @@ public class AboutActivity extends AppCompatActivity {
             }
         });
 
-        TextView textViewVersion = (TextView)findViewById(R.id.textViewVersion);
+        /*TextView textViewVersion = (TextView)findViewById(R.id.textViewVersion);
         PackageManager packageManager = getPackageManager();
         // getPackageName()是你当前类的包名，0代表是获取版本信息
         try {
@@ -80,7 +80,7 @@ public class AboutActivity extends AppCompatActivity {
             textViewVersion.setText(strVersion + " " + packInfo.versionName);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
     private void loadWebView(WebView webView, int size, String encryptText) {

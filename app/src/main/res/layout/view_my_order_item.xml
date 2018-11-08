@@ -51,7 +51,7 @@
             android:textColor="@color/label_black" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/textView24h"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/order_item_margin"

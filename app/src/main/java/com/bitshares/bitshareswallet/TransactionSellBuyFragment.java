@@ -75,9 +75,7 @@ public class TransactionSellBuyFragment extends BaseFragment
     private EditText tEditText;
     private EditText fEditText;
 
-    private TextView pTextLastView;
-    private TextView qTextLastView;
-    private TextView tTextLastView;
+
 
     private TextView balanceText;
     private TextView askText;
@@ -126,7 +124,7 @@ public class TransactionSellBuyFragment extends BaseFragment
 
         if (stat.orderBook.bids != null && !stat.orderBook.bids.isEmpty()) {
             int maxCount = Math.min(stat.orderBook.bids.size(), maxOrderCount);
-            buyRecyclerViewAdapter.setList(stat.orderBook.bids.subList(0, maxCount));
+           // buyRecyclerViewAdapter.setList(stat.orderBook.bids.subList(0, maxCount));
 
             higgestBuyPrice = stat.orderBook.bids.get(0).price;
         } else {
@@ -135,7 +133,7 @@ public class TransactionSellBuyFragment extends BaseFragment
 
         if (stat.orderBook.asks != null && !stat.orderBook.asks.isEmpty()) {
             int maxCount = Math.min(stat.orderBook.asks.size(), maxOrderCount);
-            sellRecyclerViewAdapter.setList(stat.orderBook.asks.subList(0, maxCount));
+            //sellRecyclerViewAdapter.setList(stat.orderBook.asks.subList(0, maxCount));
 
             lowestSellPrice = stat.orderBook.asks.get(0).price;
         } else {
@@ -176,7 +174,6 @@ public class TransactionSellBuyFragment extends BaseFragment
         super.onShow();
         updateCurency();
         initFee();
-        updateMaxOrderCount();
         orderStat.subscribe(baseAsset, quoteAsset, MarketStat.STAT_MARKET_ORDER_BOOK,
                 MARKET_STAT_INTERVAL_MILLIS, this);
 
@@ -242,9 +239,7 @@ public class TransactionSellBuyFragment extends BaseFragment
 
         tEditText = (EditText) view.findViewById(R.id.tEditText);
         fEditText = (EditText) view.findViewById(R.id.fEditText);
-        pTextLastView = (TextView) view.findViewById(R.id.pTextLastView);
-        qTextLastView = (TextView) view.findViewById(R.id.qTextLastView);
-        tTextLastView = (TextView) view.findViewById(R.id.tTextLastView);
+
 
         balanceText = (TextView) view.findViewById(R.id.balanceText);
         askText = (TextView) view.findViewById(R.id.askText);
@@ -253,7 +248,7 @@ public class TransactionSellBuyFragment extends BaseFragment
         askTextBase = (TextView) view.findViewById(R.id.askTextBase);
         askTextInfo = (TextView) view.findViewById(R.id.askTextInfo);
 
-        buyRecyclerView = (RecyclerView) view.findViewById(R.id.buy_recycler);
+       /* buyRecyclerView = (RecyclerView) view.findViewById(R.id.buy_recycler);
         buyRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         buyRecyclerViewAdapter = new TransactionSellBuyRecyclerViewAdapter();
         buyRecyclerView.setAdapter(buyRecyclerViewAdapter);
@@ -263,7 +258,7 @@ public class TransactionSellBuyFragment extends BaseFragment
         sellRecyclerViewAdapter = new TransactionSellBuyRecyclerViewAdapter();
         sellRecyclerView.setAdapter(sellRecyclerViewAdapter);
         sellRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        sellRecyclerView.setItemAnimator(null);
+        sellRecyclerView.setItemAnimator(null);*/
 
         return view;
     }
@@ -519,15 +514,7 @@ public class TransactionSellBuyFragment extends BaseFragment
         }).start();
     }
 
-    private void updateMaxOrderCount(){
-        int orderItemHeightDp = DensityUtil.dpToPx(getContext(), TransactionSellBuyRecyclerViewAdapter.ORDERITEMHEIGHTDP);
-        int buyRecyclerHeight = buyRecyclerView.getHeight();
 
-        maxOrderCount = buyRecyclerHeight / orderItemHeightDp;
-        if (maxOrderCount <= 0) {
-            maxOrderCount = 8;
-        }
-    }
 
     private void updateCurency(){
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
@@ -538,9 +525,7 @@ public class TransactionSellBuyFragment extends BaseFragment
 
         String baseAssetDisplay = utils.getAssetSymbolDisply(baseAsset);
         String quoteAssetDisplay = utils.getAssetSymbolDisply(quoteAsset);
-        pTextLastView.setText(baseAssetDisplay + "/" + quoteAssetDisplay);
-        qTextLastView.setText(quoteAssetDisplay);
-        tTextLastView.setText(baseAssetDisplay);
+
         if (isBuy()) {
             balanceTextBase.setText(baseAssetDisplay);
             askTextBase.setText(baseAssetDisplay);

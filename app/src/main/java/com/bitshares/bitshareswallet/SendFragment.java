@@ -74,8 +74,6 @@ public class SendFragment extends BaseFragment {
     private OnFragmentInteractionListener mListener;
 
     @BindView(R.id.editTextTo) EditText mEditTextTo;
-    @BindView(R.id.textViewToId) TextView mTextViewId;
-
     @BindView(R.id.editTextQuantity) EditText mEditTextQuantitiy;
 
     private View mView;
@@ -120,22 +118,11 @@ public class SendFragment extends BaseFragment {
         ButterKnife.bind(this, mView);
 
         EditText editTextFrom = (EditText)mView.findViewById(R.id.editTextFrom);
-
-        String strName = BitsharesWalletWraper.getInstance().get_account().name;
-        editTextFrom.setText(strName);
-
-        sha256_object.encoder encoder = new sha256_object.encoder();
-        encoder.write(strName.getBytes());
-
-        WebView webViewFrom = (WebView)mView.findViewById(R.id.webViewAvatarFrom);
-        loadWebView(webViewFrom, 40, encoder.result().toString());
-
-        TextView textView = (TextView)mView.findViewById(R.id.textViewFromId);
         String strId = String.format(
-                Locale.ENGLISH, "#%d",
+                Locale.ENGLISH, "%d",
                 BitsharesWalletWraper.getInstance().get_account().id.get_instance()
         );
-        textView.setText(strId);
+        editTextFrom.setText(strId);
 
         mProcessHud = KProgressHUD.create(getActivity())
                 .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
@@ -151,17 +138,8 @@ public class SendFragment extends BaseFragment {
             }
         });
 
-        mEditTextTo.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                final String strText = mEditTextTo.getText().toString();
-                if (hasFocus == false) {
-                    processGetTransferToId(strText, mTextViewId);
-                }
-            }
-        });
 
-        final WebView webViewTo = (WebView)mView.findViewById(R.id.webViewAvatarTo);
+
         mEditTextTo.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -177,7 +155,6 @@ public class SendFragment extends BaseFragment {
             public void afterTextChanged(Editable s) {
                 sha256_object.encoder encoder = new sha256_object.encoder();
                 encoder.write(s.toString().getBytes());
-                loadWebView(webViewTo, 40, encoder.result().toString());
             }
         });
 
@@ -254,9 +231,7 @@ public class SendFragment extends BaseFragment {
     @Override
     public void onShow() {
         super.onShow();
-        if (mEditTextTo.getText().length() > 0) {
-            processGetTransferToId(mEditTextTo.getText().toString(), mTextViewId);
-        }
+
         notifyUpdate();
     }
 
@@ -341,7 +316,7 @@ public class SendFragment extends BaseFragment {
                         String strTo = ((EditText) view.findViewById(R.id.editTextTo)).getText().toString();
                         String strQuantity = ((EditText) view.findViewById(R.id.editTextQuantity)).getText().toString();
                         String strSymbol = (String)mSpinner.getSelectedItem();
-                        String strMemo = ((EditText)view.findViewById(R.id.editTextMemo)).getText().toString();
+                        String strMemo = "";
                         processTransfer(strFrom, strTo, strQuantity, strSymbol, strMemo);
                     } else {
                         viewGroup.findViewById(R.id.textViewPasswordInvalid).setVisibility(View.VISIBLE);
@@ -354,7 +329,7 @@ public class SendFragment extends BaseFragment {
             String strTo = ((EditText) view.findViewById(R.id.editTextTo)).getText().toString();
             String strQuantity = ((EditText) view.findViewById(R.id.editTextQuantity)).getText().toString();
             String strSymbol = (String)mSpinner.getSelectedItem();
-            String strMemo = ((EditText)view.findViewById(R.id.editTextMemo)).getText().toString();
+            String strMemo = "";
 
             processTransfer(strFrom, strTo, strQuantity, strSymbol, strMemo);
         }
@@ -411,7 +386,7 @@ public class SendFragment extends BaseFragment {
     private void processCalculateFee() {
         final String strQuantity = ((EditText) mView.findViewById(R.id.editTextQuantity)).getText().toString();
         final String strSymbol = (String) mSpinner.getSelectedItem();
-        final String strMemo = ((EditText) mView.findViewById(R.id.editTextMemo)).getText().toString();
+        final String strMemo = "";
 
         // 用户没有任何货币，这个symbol会为空，则会出现崩溃，进行该处理进行规避
         if (TextUtils.isEmpty(strQuantity) || TextUtils.isEmpty(strSymbol)) {
@@ -494,22 +469,6 @@ public class SendFragment extends BaseFragment {
                 "Cannot be modified"
         );
         editTextFee.setText(strResult);
-
-        Spinner spinner = (Spinner) mView.findViewById(R.id.spinner_fee_unit);
-
-        List<String> listSymbols = new ArrayList<>();
-        listSymbols.add(assetObject.symbol);
-
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
-                getActivity(),
-                android.R.layout.simple_spinner_item,
-                listSymbols
-        );
-
-        if (mSpinner != null) {
-            arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            spinner.setAdapter(arrayAdapter);
-        }
     }
 
     private void loadWebView(WebView webView, int size, String encryptText) {

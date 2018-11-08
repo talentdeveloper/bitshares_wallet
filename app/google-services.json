@@ -1,0 +1,73 @@
+{
+  "project_info": {
+    "project_number": "656099368519",
+    "firebase_url": "https://bitshareswallet-731f0.firebaseio.com",
+    "project_id": "bitshareswallet-731f0",
+    "storage_bucket": "bitshareswallet-731f0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:656099368519:android:63f5d2e2461bcf45",
+        "android_client_info": {
+          "package_name": "com.bitshares.bitshareswallet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "656099368519-hn7572t3mpfu4qll5db1oo15v020ae3b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1zKstURYVQHf3LIKQeb7jAuNKtMwQ9WQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:656099368519:android:017d711f452feed7",
+        "android_client_info": {
+          "package_name": "com.bitshares.bitshareswallet1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "656099368519-hn7572t3mpfu4qll5db1oo15v020ae3b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1zKstURYVQHf3LIKQeb7jAuNKtMwQ9WQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
