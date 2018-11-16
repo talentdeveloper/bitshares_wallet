@@ -98,7 +98,8 @@ public class QuotationFragment extends BaseFragment {
         ButterKnife.bind(this, view);
 
         mTxtTitle = (TextView) mLayoutTitle.findViewById(R.id.txt_bar_title);
-        mTxtTitle.setText(((MainActivity)getActivity()).mTxtTitle.getText());
+        String value = (String) ((MainActivity)getActivity()).mTxtTitle.getText();
+        mTxtTitle.setText(value.replaceAll("ZMKZM","ZMK"));
         mLayoutTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -190,6 +191,10 @@ public class QuotationFragment extends BaseFragment {
                 if (quotationCurrencyPairAdapter.getSelectedMarketTicker() != null) {
                     MarketTicker marketTicker = quotationCurrencyPairAdapter.getSelectedMarketTicker().marketTicker;
                     viewModel.selectedMarketTicker(new Pair(marketTicker.base, marketTicker.quote));
+                    ((MainActivity)getActivity()).mViewPager.setCurrentItem(2, true);
+                    ((MainActivity)getActivity()).mMainFragmentPageAdapter.updatePagePosition(1);
+                    ((MainActivity)getActivity()).setTitleVisible(false);
+                    ((MainActivity)getActivity()).mBottomNavigation.setSelectedItemId(R.id.navigation_exchange);
                 }
 
             }
@@ -200,8 +205,8 @@ public class QuotationFragment extends BaseFragment {
 
     private void initChart() {
         int colorHomeBg = getResources().getColor(android.R.color.transparent);
-        int colorLine = getResources().getColor(R.color.common_divider);
-        int colorText = getResources().getColor(R.color.text_grey_light);
+        int colorLine = getResources().getColor(R.color.grey);
+        int colorText = getResources().getColor(R.color.label_black);
 
         mChart.setDescription(null);
         mChart.setDrawGridBackground(true);
@@ -217,7 +222,7 @@ public class QuotationFragment extends BaseFragment {
 
         XAxis xAxis = mChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setDrawGridLines(true);
+        xAxis.setDrawGridLines(false);
         xAxis.setGridColor(colorLine);
         xAxis.setTextColor(colorText);
         xAxis.setLabelCount(3);
@@ -234,7 +239,8 @@ public class QuotationFragment extends BaseFragment {
         rightAxis.setTextSize(8);
         rightAxis.setLabelCount(5, false);
         rightAxis.setDrawGridLines(false);
-        rightAxis.setDrawAxisLine(true);
+        rightAxis.setDrawAxisLine(false);
+        rightAxis.setDrawLabels(false);
         rightAxis.setGridColor(colorLine);
         rightAxis.setTextColor(colorText);
         rightAxis.setAxisMinimum(0);
@@ -254,9 +260,10 @@ public class QuotationFragment extends BaseFragment {
                         case LOADING:
                             if (marketTickerListResource.data != null && marketTickerListResource.data.size() != 0) {
                                 quotationCurrencyPairAdapter.notifyDataUpdated(marketTickerListResource.data);
-                                MarketTicker marketTicker = quotationCurrencyPairAdapter.getSelectedMarketTicker().marketTicker;
-                                viewModel.selectedMarketTicker(new Pair(marketTicker.base, marketTicker.quote));
-
+                                if(quotationCurrencyPairAdapter.getSelectedMarketTicker()!=null) {
+                                    MarketTicker marketTicker = quotationCurrencyPairAdapter.getSelectedMarketTicker().marketTicker;
+                                    viewModel.selectedMarketTicker(new Pair(marketTicker.base, marketTicker.quote));
+                                }
                             }
                             break;
                         case SUCCESS:
@@ -282,7 +289,8 @@ public class QuotationFragment extends BaseFragment {
             }
         });
         viewModel.getSelectedMarketTicker().observe(this, currencyPair -> {quotationCurrencyPairAdapter.notifyDataSetChanged();
-            mTxtTitle.setText(((MainActivity)getActivity()).mTxtTitle.getText());
+            String value = (String) ((MainActivity)getActivity()).mTxtTitle.getText();
+            mTxtTitle.setText(value.replaceAll("ZMKZM","ZMK"));
         });
     }
 
@@ -335,8 +343,8 @@ public class QuotationFragment extends BaseFragment {
         set.setAxisDependency(YAxis.AxisDependency.LEFT);
         set.setShadowWidth(0.7f);
         set.setDecreasingPaintStyle(Paint.Style.FILL);
-        int nColorGreen = ContextCompat.getColor(getActivity(), R.color.candle_green);
-        int nColorRed = ContextCompat.getColor(getActivity(), R.color.quotation_top_red);
+        int nColorGreen = ContextCompat.getColor(getActivity(), R.color.chart_color1);
+        int nColorRed = ContextCompat.getColor(getActivity(), R.color.chart_color2);
         if (!MainActivity.rasingColorRevers) {
             set.setDecreasingColor(nColorRed);
             set.setIncreasingColor(nColorGreen);

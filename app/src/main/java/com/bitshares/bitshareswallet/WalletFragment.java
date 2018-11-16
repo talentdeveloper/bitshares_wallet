@@ -136,6 +136,17 @@ public class WalletFragment extends BaseFragment {
     void processShowdata(List<BitsharesBalanceAsset> bitsharesBalanceAssetList) {
         long totalBTS = 0;
         long totalBalance = 0;
+        Boolean flag = true;
+        while(flag) {
+            flag = false;
+            for (int i = 0; i < bitsharesBalanceAssetList.size(); i++) {
+                BitsharesBalanceAsset bitsharesBalanceAsset = bitsharesBalanceAssetList.get(i);
+                if (!bitsharesBalanceAsset.quote.equalsIgnoreCase("ZMKZM") && !bitsharesBalanceAsset.quote.equalsIgnoreCase("GRZBND") && !bitsharesBalanceAsset.quote.equalsIgnoreCase("FROSCU")) {
+                    bitsharesBalanceAssetList.remove(i);
+                    flag = true;
+                }
+            }
+        }
         for (BitsharesBalanceAsset bitsharesBalanceAsset : bitsharesBalanceAssetList) {
             totalBTS += bitsharesBalanceAsset.total;
             totalBalance += bitsharesBalanceAsset.balance;
@@ -151,7 +162,7 @@ public class WalletFragment extends BaseFragment {
                     Locale.ENGLISH,
                     "(%d %s)",
                     totalBTS,
-                    "BTS"
+                    "ZMK"
             );
 
             textViewCurency.setText(strTotalCurrency);

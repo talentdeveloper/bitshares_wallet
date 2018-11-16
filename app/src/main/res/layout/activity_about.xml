@@ -72,97 +72,17 @@
                 android:text="Twitter@incryptive"
                 android:textColor="@android:color/white" />
 
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:gravity="center"
+                android:text="CRYPTIVE IS A RELIABLE SECONDARY MARKET TRADING PLATFORM"
+                android:textColor="@android:color/white"
+                android:textSize="18sp" />
+
         </LinearLayout>
 
     </android.support.design.widget.AppBarLayout>
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-    <LinearLayout
-        android:id="@+id/fragment_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@android:color/white"
-        android:padding="8dp"
-        >
-
-        <TextView
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:text="@string/about_activity_text"/>
-
-        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:gravity="center_horizontal">
-
-            <WebView
-                android:id="@+id/webViewAvatar"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_marginTop="50dp"
-                android:layout_marginBottom="12dp"  />
-
-            <TextView
-                android:id="@+id/textViewAccountName"
-                android:textColor="@android:color/black"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/webViewAvatar"
-                android:layout_marginLeft="19dp"
-                android:layout_marginStart="19dp"
-                android:layout_toEndOf="@+id/webViewAvatar"
-                android:layout_toRightOf="@+id/webViewAvatar"
-                android:text="bituniverse2017" />
-
-            <TextView
-                android:id="@+id/textViewAccountId"
-                android:textColor="@color/black_overlay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/textViewAccountName"
-                android:layout_alignStart="@+id/textViewAccountName"
-                android:layout_marginTop="2dp"
-                android:layout_marginBottom="4dp"
-                android:text="#399288"
-                android:layout_below="@+id/textViewAccountName" />
-
-            <TextView
-                android:id="@+id/textViewCopyAccount"
-                android:paddingTop="3dp"
-                android:paddingLeft="6dp"
-                android:paddingRight="6dp"
-                android:paddingBottom="6dp"
-                android:background="@drawable/button_black_line_normal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/textViewAccountId"
-                android:layout_alignStart="@+id/textViewAccountId"
-                android:layout_below="@+id/textViewAccountId"
-                android:textSize="10sp"
-                android:textColor="@color/black_overlay"
-                android:text="Copy Account" />
-
-        </RelativeLayout>
-
-        <TextView
-            android:id="@+id/btn_donate"
-            style="@style/ButtonStyle"
-            android:layout_width="match_parent"
-            android:layout_height="43dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center_vertical"
-            android:layout_margin="8dp"
-            android:text="@string/about_activity_button" />
-
-    </LinearLayout>
-
-    </ScrollView>
 </android.support.design.widget.CoordinatorLayout>

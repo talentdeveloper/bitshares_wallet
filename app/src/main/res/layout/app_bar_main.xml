@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:elevation="0dp"
-            app:layout_collapseMode="pin"
+            app:layout_collapseMode="none"
             app:popupTheme="@style/AppTheme.PopupOverlay"
             app:title=" "
             app:titleTextColor="@android:color/white">

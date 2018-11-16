@@ -43,8 +43,8 @@ public class QuotationCurrencyPairAdapter extends RecyclerView.Adapter<Quotation
         private ImageView mCurrencyIconView;
         private ImageView mStatus;
         private TextView mViewCurrencyPair;
-        private TextView mViewPrice;
-        private TextView mTotal;
+        private TextView mBottomPrice;
+        private TextView mTopPrice;
         private TextView mUnit;
         private TextView mView24h;
 
@@ -53,11 +53,11 @@ public class QuotationCurrencyPairAdapter extends RecyclerView.Adapter<Quotation
             mView = itemView;
             mCurrencyIconView = (ImageView) mView.findViewById(R.id.imageViewCurrency);
             mViewCurrencyPair = (TextView) mView.findViewById(R.id.textViewCurrencyPair);
-            mViewPrice = (TextView) mView.findViewById(R.id.textViewPrice);
+            mBottomPrice = (TextView) mView.findViewById(R.id.textViewPrice);
             mView24h = (TextView) mView.findViewById(R.id.textView24h);
             mStatus = (ImageView)mView.findViewById(R.id.imageViewStatus);
             mUnit = (TextView)mView.findViewById(R.id.textViewUnit);
-            mTotal = (TextView)mView.findViewById(R.id.textViewTotal);
+            mTopPrice = (TextView)mView.findViewById(R.id.textViewTotal);
         }
     }
 
@@ -69,24 +69,16 @@ public class QuotationCurrencyPairAdapter extends RecyclerView.Adapter<Quotation
     private List<BitsharesMarketTicker> bitsharesMarketTickerList;
     private Set<String> currecnyPairSet = new HashSet<>();
     private int selected = 0;
+    private double zmk_usd_latest = 0;
 
     public QuotationCurrencyPairAdapter(Context context) {
         mContext = context;
         marrOptions = context.getResources().getStringArray(R.array.quotation_currency_pair_options);
         marrValues = context.getResources().getStringArray(R.array.quotation_currency_pair_values);
         currecnyPairSet.addAll(Arrays.asList(marrValues));
-
-        mapSymbol2Id.put("BTS", R.mipmap.bts);
-        mapSymbol2Id.put("BTC", R.mipmap.btc);
-        mapSymbol2Id.put("ETH", R.mipmap.eth);
-        mapSymbol2Id.put("HERO", R.mipmap.hero);
-        mapSymbol2Id.put("OBITS", R.mipmap.obits);
-        mapSymbol2Id.put("SMOKE", R.mipmap.smok);
-        mapSymbol2Id.put("USDT", R.mipmap.usdt);
-        mapSymbol2Id.put("OCT", R.mipmap.oct);
-        mapSymbol2Id.put("YOYOW", R.mipmap.yoyow);
-        mapSymbol2Id.put("DASH", R.mipmap.dash);
-
+        mapSymbol2Id.put("ZMKZM", R.mipmap.zmk);
+        mapSymbol2Id.put("GRZBND", R.mipmap.grzbnd);
+        mapSymbol2Id.put("FROSCU", R.mipmap.froscu);
     }
 
     @Override
@@ -99,27 +91,41 @@ public class QuotationCurrencyPairAdapter extends RecyclerView.Adapter<Quotation
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         BitsharesMarketTicker bitsharesMarketTicker = bitsharesMarketTickerList.get(position);
-/*
-        if (selected == position) {
-            holder.mViewSelected.setVisibility(View.VISIBLE);
-        } else {
-            holder.mViewSelected.setVisibility(View.INVISIBLE);
-        }
-*/
         MarketTicker marketTicker = bitsharesMarketTicker.marketTicker;
         String currencyPair = utils.getAssetSymbolDisply(marketTicker.quote) + " : " +
                 utils.getAssetSymbolDisply(marketTicker.base);
-        holder.mUnit.setText(utils.getAssetSymbolDisply(marketTicker.quote));
-        holder.mViewCurrencyPair.setText(currencyPair);
-        Integer nId = mapSymbol2Id.get(utils.getAssetSymbolDisply(marketTicker.quote));
-        if (nId == null) {
-            nId = R.mipmap.bts;
+        holder.mUnit.setText(utils.getAssetSymbolDisply(marketTicker.quote).replaceAll("ZMKZM","ZMK"));
+        String description = "";
+        switch (marketTicker.quote)
+        {
+            case "ZMKZM":description = "Zambian Kwacha";break;
+            case "GRZBND":description = "2Y GRZ Bond 14%";break;
+            case "FROSCU":description = "FROSCU SHARE";break;
+            default:description = holder.mUnit.getText().toString();break;
         }
-        holder.mCurrencyIconView.setImageResource(nId);
-
+        holder.mUnit.setText(description);
+        holder.mViewCurrencyPair.setText(currencyPair.replaceAll("ZMKZM","ZMK"));
+        Integer nId = mapSymbol2Id.get(utils.getAssetSymbolDisply(marketTicker.quote));
+        if (nId != null) {
+            holder.mCurrencyIconView.setImageResource(nId);
+        }
 
         DecimalFormat decimalFormat = new DecimalFormat("#.####");
-        holder.mViewPrice.setText(decimalFormat.format(marketTicker.latest) + " "+ holder.mUnit.getText());
+        if(marketTicker.quote.equals("ZMKZM"))
+        {
+            holder.mBottomPrice.setText("1 ZMK");
+            holder.mTopPrice.setText("$ "+ decimalFormat.format(marketTicker.latest));
+        }
+        else if(marketTicker.base.equals("USD"))
+        {
+            holder.mTopPrice.setText("$ "+ decimalFormat.format(marketTicker.latest));
+            double value = (this.zmk_usd_latest == 0)?0:marketTicker.latest / this.zmk_usd_latest;
+            holder.mBottomPrice.setText(decimalFormat.format(value) +" ZMK");
+        }
+        else{
+            holder.mTopPrice.setText(decimalFormat.format(marketTicker.latest)+" ZMK");
+            holder.mBottomPrice.setText("$ "+decimalFormat.format(marketTicker.latest * this.zmk_usd_latest ));
+        }
 
         double percent_change = 0.f;
         try {
@@ -185,7 +191,13 @@ public class QuotationCurrencyPairAdapter extends RecyclerView.Adapter<Quotation
     public void notifyDataUpdated(List<BitsharesMarketTicker> marketTickerList) {
         bitsharesMarketTickerList = new ArrayList<>();
         for (BitsharesMarketTicker bitsharesMarketTicker : marketTickerList) {
-            if (currecnyPairSet.contains(bitsharesMarketTicker.marketTicker.quote + ":" + bitsharesMarketTicker.marketTicker.base)) {
+            String str = bitsharesMarketTicker.marketTicker.quote + ":" + bitsharesMarketTicker.marketTicker.base;
+            if(str.equals("ZMKZM:USD"))
+            {
+                this.zmk_usd_latest = bitsharesMarketTicker.marketTicker.latest;
+               // Toast.makeText(mContext,"latest:"+this.zmk_usd_latest,(int)10).show();
+            }
+            if (currecnyPairSet.contains(str)) {
                 bitsharesMarketTickerList.add(bitsharesMarketTicker);
             }
         }

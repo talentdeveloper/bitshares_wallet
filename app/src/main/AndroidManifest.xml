@@ -40,10 +40,6 @@
             android:name=".ImportActivty"
             android:screenOrientation="portrait"
             android:theme="@style/ActivityTheme" />
-        <activity
-            android:name=".ModelSelectActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/ActivityTheme" />
 
         <meta-data
             android:name="io.fabric.ApiKey"

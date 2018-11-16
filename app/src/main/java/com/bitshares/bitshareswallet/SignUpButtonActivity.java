@@ -61,8 +61,6 @@ public class SignUpButtonActivity extends AppCompatActivity {
         findViewById(R.id.sign_in_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent intent = new Intent(SignUpButtonActivity.this, ModelSelectActivity.class);
-                //startActivity(intent);
                 mProcessHud.show();
                 String strAccount = ((EditText)findViewById(R.id.editTextAccountName)).getText().toString();
                 String strPassword = ((EditText)findViewById(R.id.editTextPassword)).getText().toString();

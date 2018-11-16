@@ -10,13 +10,18 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bitshares.bitshareswallet.room.BitsharesBalanceAsset;
 import com.bitshares.bitshareswallet.viewmodel.WalletViewModel;
+import com.bitshares.bitshareswallet.wallet.graphene.chain.utils;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 
 /**
@@ -47,6 +52,7 @@ public class BalancesFragment extends BaseFragment {
         public TextView viewUnitFull;
         public TextView viewConvertNumber;
         public TextView viewUnit;
+        public ImageView imageViewCurrency;
 
         public BalanceItemViewHolder(View itemView) {
             super(itemView);
@@ -55,14 +61,18 @@ public class BalancesFragment extends BaseFragment {
             viewUnitFull = (TextView) itemView.findViewById(R.id.textViewUnitFull);
             viewConvertNumber = (TextView) itemView.findViewById(R.id.textViewNumber2);
             viewUnit = (TextView) itemView.findViewById(R.id.textViewUnit);
+            imageViewCurrency = (ImageView)itemView.findViewById((R.id.imageViewCurrency));
         }
     }
 
     class BalancesAdapter extends RecyclerView.Adapter<BalanceItemViewHolder> {
         private List<BitsharesBalanceAsset> bitsharesBalanceAssetList;
-
+        private Map<String, Integer> mapSymbol2Id = new HashMap<>();
         @Override
         public BalanceItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            mapSymbol2Id.put("ZMKZM", R.mipmap.zmk);
+            mapSymbol2Id.put("GRZBND", R.mipmap.grzbnd);
+            mapSymbol2Id.put("FROSCU", R.mipmap.froscu);
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_item_balances, parent, false);
             return new BalanceItemViewHolder(view);
         }
@@ -72,16 +82,26 @@ public class BalancesFragment extends BaseFragment {
             BitsharesBalanceAsset bitsharesBalanceAsset = bitsharesBalanceAssetList.get(position);
             String strBalances = String.format(
                     Locale.ENGLISH,
-                    "%.4f",
-                    (float)bitsharesBalanceAsset.amount / bitsharesBalanceAsset.quote_precision
+                    "%.0f",
+                    Math.ceil((float)bitsharesBalanceAsset.amount / bitsharesBalanceAsset.quote_precision)
             );
-
-            holder.viewConvertNumber.setText(strBalances +" "+holder.viewUnit.getText());
-            holder.viewUnitFull.setText(bitsharesBalanceAsset.quote);
-            holder.viewUnit.setText(bitsharesBalanceAsset.quote);
             int nResult = (int)Math.rint(bitsharesBalanceAsset.total / bitsharesBalanceAsset.base_precision);
-            holder.viewNumber.setText("$"+Integer.valueOf(nResult).toString());
-
+            holder.viewConvertNumber.setText(""+nResult+" ZMK");
+            String description = "";
+            switch (bitsharesBalanceAsset.quote)
+            {
+                case "ZMKZM":description = "Zambian Kwacha";break;
+                case "GRZBND":description = "2Y GRZ Bond 14%";break;
+                case "FROSCU":description = "FROSCU SHARE";break;
+                default:break;
+            }
+            holder.viewUnitFull.setText(bitsharesBalanceAsset.quote.replaceAll("ZMKZM","ZMK"));
+            holder.viewUnit.setText(description);
+            holder.viewNumber.setText(strBalances);
+            Integer nId = mapSymbol2Id.get(utils.getAssetSymbolDisply(bitsharesBalanceAsset.quote));
+            if (nId != null) {
+                holder.imageViewCurrency.setImageResource(nId);
+            }
         }
 
         @Override
@@ -94,8 +114,21 @@ public class BalancesFragment extends BaseFragment {
         }
 
         public void notifyBalancesDataChanged(List<BitsharesBalanceAsset> bitsharesBalanceAssetList) {
+           // String str = "";
+            Boolean flag = true;
             this.bitsharesBalanceAssetList = bitsharesBalanceAssetList;
-
+            while(flag) {
+                flag = false;
+                for (int i = 0; i < bitsharesBalanceAssetList.size(); i++) {
+                    BitsharesBalanceAsset bitsharesBalanceAsset = bitsharesBalanceAssetList.get(i);
+                   // str += "*" + bitsharesBalanceAsset.quote;
+                    if (!bitsharesBalanceAsset.quote.equalsIgnoreCase("ZMKZM") && !bitsharesBalanceAsset.quote.equalsIgnoreCase("GRZBND") && !bitsharesBalanceAsset.quote.equalsIgnoreCase("FROSCU")) {
+                        this.bitsharesBalanceAssetList.remove(i);
+                        flag = true;
+                    }
+                }
+            }
+            //Toast.makeText(getContext(),str,(int)10).show();
             notifyDataSetChanged();
         }
     }

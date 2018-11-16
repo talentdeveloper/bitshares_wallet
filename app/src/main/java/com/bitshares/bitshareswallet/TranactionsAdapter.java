@@ -136,7 +136,7 @@ class TranactionsAdapter extends RecyclerView.Adapter<TranactionsAdapter.Transac
         if (operationHistoryWrapper == null) {
             return 0;
         } else {
-            return operationHistoryWrapper.bitsharesOperationHistoryList.size();
+            return operationHistoryWrapper.bitsharesOperationHistoryList.size()-1;
         }
     }
 

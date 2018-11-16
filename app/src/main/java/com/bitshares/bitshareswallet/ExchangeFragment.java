@@ -95,7 +95,8 @@ public class ExchangeFragment extends BaseFragment {
         initPager(mViewPager, mExchangeFragmentPageAdapter);
 
         mTxtTitle = (TextView) mLayoutTitle.findViewById(R.id.txt_bar_title);
-        mTxtTitle.setText(((MainActivity)getActivity()).mTxtTitle.getText());
+        String value = (String) ((MainActivity)getActivity()).mTxtTitle.getText();
+        mTxtTitle.setText(value.replaceAll("ZMKZM","ZMK"));
         mLayoutTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -171,7 +172,8 @@ public class ExchangeFragment extends BaseFragment {
 
         QuotationViewModel viewModel = ViewModelProviders.of(getActivity()).get(QuotationViewModel.class);
         viewModel.getSelectedMarketTicker().observe(this, currencyPair -> {
-            mTxtTitle.setText(((MainActivity)getActivity()).mTxtTitle.getText());
+            String value = (String) ((MainActivity)getActivity()).mTxtTitle.getText();
+            mTxtTitle.setText(value.replaceAll("ZMKZM","ZMK"));
         });
     }
 }

@@ -68,7 +68,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_marginLeft="15dp"
                 android:scaleType="fitCenter"
-                app:srcCompat="@mipmap/bts" />
+                 />
 
             <TextView
                 android:id="@+id/textViewUnit"

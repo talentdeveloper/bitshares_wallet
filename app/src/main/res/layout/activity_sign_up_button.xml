@@ -47,7 +47,7 @@
         android:background="@android:color/background_light">
 
         <ImageView
-            android:id="@+id/splash_logo"
+            android:id="@+id/splash_back"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -58,7 +58,7 @@
             android:id="@+id/welcome_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/splash_logo"
+            android:layout_below="@+id/splash_back"
             android:layout_marginLeft="13dp"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/open_sans"

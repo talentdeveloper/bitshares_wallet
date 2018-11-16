@@ -8,8 +8,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="270dp"
-        android:background="@drawable/background_bottomrounded"
+        android:layout_height="300dp"
+        android:background="@android:color/white"
         android:orientation="vertical">
 
         <ImageView
@@ -28,7 +28,7 @@
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:layout_marginTop="5dp"
-            android:background="@drawable/white_rounded_small"
+            android:background="@drawable/background_round"
             android:gravity="center"
             android:paddingBottom="3dp"
             android:paddingTop="3dp">
@@ -37,10 +37,10 @@
                 android:id="@+id/txt_bar_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/open_sans"
+                android:fontFamily="@font/open_sans_semibold"
                 android:text=""
-                android:textColor="@android:color/black"
-                android:textSize="20sp" />
+                android:textColor="@android:color/white"
+                android:textSize="18sp" />
 
             <ImageView
                 android:id="@+id/img_more"
@@ -48,16 +48,15 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="5dp"
-                app:srcCompat="@mipmap/ic_more_black" />
+                app:srcCompat="@mipmap/ic_more" />
         </LinearLayout>
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/lay_title"
-            android:layout_marginBottom="15dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/white_rounded_small">
 

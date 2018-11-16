@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/main_background"
@@ -82,7 +83,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_marginLeft="15dp"
                 android:scaleType="fitCenter"
-                app:srcCompat="@mipmap/bts" />
+                app:srcCompat="@android:drawable/ic_menu_help" />
 
             <TextView
                 android:id="@+id/textViewUnit"

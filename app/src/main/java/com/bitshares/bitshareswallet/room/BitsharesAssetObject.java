@@ -18,4 +18,5 @@ public class BitsharesAssetObject {
     public object_id<asset_object> asset_id;
     public String symbol;
     public long precision;
+
 }

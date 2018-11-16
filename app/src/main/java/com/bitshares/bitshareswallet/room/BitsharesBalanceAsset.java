@@ -18,6 +18,4 @@ public class BitsharesBalanceAsset {
     public String currency;
     public long balance;
     public long currency_precision;
-
-
 }

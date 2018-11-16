@@ -83,8 +83,8 @@
     <string name="transaction_unlock_memo_dialog_message">Type your password to unlock:</string>
 
     <string name="title_wallet">Wallet</string>
-    <string name="title_quotation">Quotes</string>
-    <string name="title_exchange">Exchange</string>
+    <string name="title_quotation">Market</string>
+    <string name="title_exchange">Trade</string>
     <string name="title_buy">Buy</string>
     <string name="title_sell">Sell</string>
     <string name="title_my_orders">Orders</string>
@@ -176,8 +176,8 @@
     <string name="promotion_dialog_subtitle">Check BTS and Bitcoin price in BitShares DEX and other exchanges</string>
     <string name="promotion_dialog_positive_button">Download</string>
 
-    <string name="loading_candle_data_failed">Failed to load data. Please try again later</string>
-    <string name="loading_candle_data">Loading candle sticker chart</string>
+    <string name="loading_candle_data_failed">Loading chart data</string>
+    <string name="loading_candle_data">Loading chart data</string>
 
     <string name="loading_history_failed">Failed to load data. Please try again later</string>
     <string name="loading_history_data">Loading transaction data</string>
